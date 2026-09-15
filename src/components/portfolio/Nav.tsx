@@ -76,7 +76,11 @@ export function Nav() {
               {item.label}
             </a>
           ))}
-          <Button asChild size="sm" className="ml-3">
+          <Button
+            asChild
+            size="sm"
+            className={cn("ml-3", onHero && "bg-accent text-accent-foreground hover:bg-accent/90")}
+          >
             <a href="#contact">Let&apos;s Connect</a>
           </Button>
         </div>
@@ -90,6 +94,7 @@ export function Nav() {
           className={cn(
             "shrink-0 rounded-md border p-2",
             onHero ? "border-navy-foreground/25 text-navy-foreground" : "border-border",
+            "focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:hidden",
           )}
 
         >
