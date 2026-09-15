@@ -8,6 +8,7 @@ export function Nav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [active, setActive] = useState("home");
+  const onHero = !scrolled && !open;
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -49,7 +50,10 @@ export function Nav() {
       >
         <a
           href="#home"
-          className="min-w-0 truncate font-display text-sm font-bold tracking-[0.14em] uppercase"
+          className={cn(
+            "min-w-0 truncate font-display text-sm font-bold tracking-[0.14em] uppercase",
+            onHero && "text-navy-foreground",
+          )}
         >
           Simangaliso <span className="text-accent">Mthembu</span>
         </a>
@@ -62,7 +66,11 @@ export function Nav() {
               aria-current={active === item.id ? "true" : undefined}
               className={cn(
                 "rounded-md px-3 py-2 text-sm font-medium transition-colors hover:text-accent focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none",
-                active === item.id ? "text-accent" : "text-muted-foreground",
+                active === item.id
+                  ? "text-accent"
+                  : onHero
+                    ? "text-navy-foreground/75"
+                    : "text-muted-foreground",
               )}
             >
               {item.label}
@@ -79,7 +87,11 @@ export function Nav() {
           aria-expanded={open}
           aria-controls="mobile-menu"
           aria-label={open ? "Close menu" : "Open menu"}
-          className="shrink-0 rounded-md border border-border p-2 focus-visible:ring-2 focus-visible:ring-ring focus-visible:outline-none lg:hidden"
+          className={cn(
+            "shrink-0 rounded-md border p-2",
+            onHero ? "border-navy-foreground/25 text-navy-foreground" : "border-border",
+          )}
+
         >
           {open ? <X className="size-5" /> : <Menu className="size-5" />}
         </button>
